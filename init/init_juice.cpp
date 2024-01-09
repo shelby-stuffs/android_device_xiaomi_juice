@@ -1,132 +1,135 @@
 /*
-   Copyright (c) 2015, The Linux Foundation. All rights reserved.
-   Copyright (C) 2016 The CyanogenMod Project.
-   Copyright (C) 2019-2020 The LineageOS Project.
-   Copyright (C) 2021 Paranoid Android.
-   Redistribution and use in source and binary forms, with or without
-   modification, are permitted provided that the following conditions are
-   met:
-    * Redistributions of source code must retain the above copyright
-      notice, this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above
-      copyright notice, this list of conditions and the following
-      disclaimer in the documentation and/or other materials provided
-      with the distribution.
-    * Neither the name of The Linux Foundation nor the names of its
-      contributors may be used to endorse or promote products derived
-      from this software without specific prior written permission.
-   THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
-   WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
-   ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
-   BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
-   BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-   WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-   OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
-   IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * Copyright (C) 2023 Paranoid Android
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
-#include <android-base/properties.h>
-#include <fstream>
-#include <unistd.h>
-#include <vector>
+#include <cstdlib>
+#include <string.h>
+
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
+#include <sys/_system_properties.h>
+#include <sys/sysinfo.h>
+#include <android-base/properties.h>
+
 #include "property_service.h"
 #include "vendor_init.h"
 
-#include <sys/_system_properties.h>
-
 using android::base::GetProperty;
+using std::string;
 
-std::vector<std::string> ro_props_default_source_order = {
-    "",
-    "product.",
-    "system.",
-    "vendor.",
-};
+std::string fingerprint_to_description(std::string fingerprint);
 
-void property_override(char const prop[], char const value[], bool add = true) {
-    prop_info *pi;
+void property_override(string prop, string value)
+{
+    auto pi = (prop_info*) __system_property_find(prop.c_str());
 
-    pi = (prop_info *)__system_property_find(prop);
-    if (pi)
-        __system_property_update(pi, value, strlen(value));
-    else if (add)
-        __system_property_add(prop, strlen(prop), value, strlen(value));
+    if (pi != nullptr)
+        __system_property_update(pi, value.c_str(), value.size());
+    else
+        __system_property_add(prop.c_str(), prop.size(), value.c_str(), value.size());
 }
 
-void vendor_load_properties() {
-    const auto set_ro_build_prop = [](const std::string &source, const std::string &prop, const std::string &value) {
-        auto prop_name = "ro." + source + "build." + prop;
-        property_override(prop_name.c_str(), value.c_str(), false);
-    };
+void set_ro_build_prop(const string &source, const string &prop,
+                       const string &value, bool product = false) {
+    string prop_name;
 
-    const auto set_ro_product_prop = [](const std::string &source, const std::string &prop, const std::string &value) {
-        auto prop_name = "ro.product." + source + prop;
-        property_override(prop_name.c_str(), value.c_str(), false);
-    };
+    if (product)
+        prop_name = "ro.product." + source + prop;
+    else
+        prop_name = "ro." + source + "build." + prop;
 
-    std::string region = GetProperty("ro.boot.hwc", "");
-    std::string hwname = GetProperty("ro.boot.product.hardware.sku", "");
-    if (hwname == "lime") {
-        if (region == "CN" || region == "Japan") {
-            property_override("bluetooth.device.default_name", "Redmi 9T");
-            property_override("ro.product.brand", "Redmi");
-            property_override("ro.product.device", "lime");
-            property_override("ro.product.manufacturer", "Xiaomi");
-            property_override("ro.product.marketname", "Redmi 9T");
-            property_override("ro.product.model", "M2010J19SG");
-            property_override("ro.product.mod_device", "aospa_lime");
-            property_override("ro.product.name", "lime_global");
-        }
-        if (region == "India") {
-            property_override("bluetooth.device.default_name", "Redmi 9T");
-            property_override("ro.product.brand", "Redmi");
-            property_override("ro.product.device", "lime");
-            property_override("ro.product.manufacturer", "Xiaomi");
-            property_override("ro.product.marketname", "Redmi 9T");
-            property_override("ro.product.model", "M2010J19SG");
-            property_override("ro.product.mod_device", "aospa_lime");
-            property_override("ro.product.name", "lime_global");
-        }
-        if (region == "Global") {
-            property_override("bluetooth.device.default_name", "Redmi 9T");
-            property_override("ro.product.brand", "Redmi");
-            property_override("ro.product.device", "lime");
-            property_override("ro.product.manufacturer", "Xiaomi");
-            property_override("ro.product.marketname", "Redmi 9T");
-            property_override("ro.product.model", "M2010J19SG");
-            property_override("ro.product.mod_device", "aospa_lime");
-            property_override("ro.product.name", "lime_global");
-        }
-    } else if (hwname == "lemon") {
-        property_override("bluetooth.device.default_name", "Redmi 9T NFC");
-        property_override("ro.product.brand", "Redmi");
-        property_override("ro.product.device", "lemon");
-        property_override("ro.product.manufacturer", "Xiaomi");
-        property_override("ro.product.marketname", "Redmi 9T NFC");
-        property_override("ro.product.model", "M2010J19SY");
-        property_override("ro.product.mod_device", "aospa_lemon");
-        property_override("ro.product.name", "lemon_global");
-    } else if (hwname == "citrus") {
-        property_override("bluetooth.device.default_name", "POCO M3");
-        property_override("ro.product.brand", "POCO");
-        property_override("ro.product.device", "citrus");
-        property_override("ro.product.manufacturer", "Xiaomi");
-        property_override("ro.product.marketname", "POCO M3");
-        property_override("ro.product.model", "M2010J19CG");
-        property_override("ro.product.mod_device", "aospa_citrus");
-        property_override("ro.product.name", "citrus_global");
-    } else if (hwname == "pomelo") {
-        property_override("bluetooth.device.default_name", "Redmi 9 Power");
-        property_override("ro.product.brand", "Redmi");
-        property_override("ro.product.device", "pomelo");
-        property_override("ro.product.manufacturer", "Xiaomi");
-        property_override("ro.product.marketname", "Redmi 9 Power");
-        property_override("ro.product.model", "M2010J19SL");
-        property_override("ro.product.mod_device", "aospa_pomelo");
-        property_override("ro.product.name", "pomelo_global");
+    property_override(prop_name.c_str(), value.c_str());
+}
+
+void set_device_props(const string model, const string name, const string marketname,
+                      const string mod_device, const string fingerprint, const string description) {
+    // list of partitions to override props
+    string source_partitions[] = { "", "bootimage.", "product.""system.",
+                                   "system_ext.", "vendor." };
+
+    for (const string &source : source_partitions) {
+        set_ro_build_prop(source, "model", model, true);
+        set_ro_build_prop(source, "name", name, true);
+        set_ro_build_prop(source, "marketname", marketname, true);
     }
+    property_override("ro.product.mod_device", mod_device.c_str());
+    property_override("bluetooth.device.default_name", marketname.c_str());
+    property_override("vendor.usb.product_string", marketname.c_str());
+	property_override("ro.build.fingerprint", fingerprint.c_str());
+	property_override("ro.build.description", description.c_str());
+    property_override("ro.bootimage.build.fingerprint", fingerprint.c_str());
+}
+
+void vendor_load_properties()
+{
+    // Detect device and configure properties
+    string hwname = GetProperty("ro.boot.product.hardware.sku", "");
+
+    if (hwname == "citrus") {
+        set_device_props("M2010J19CG", "citrus", "POCO M3", "citrus_global",
+		"POCO/citrus_global/citrus:11/RKQ1.201004.002/V12.5.7.0.RJFMIXM:user/release-keys", "citrus_global-user 11 RKQ1.201004.002 V12.5.7.0.RJFMIXM release-keys");
+    } else if (hwname == "lime") {
+        set_device_props("M2010J19SG", "lime", "Redmi 9T", "lime_global",
+		"Redmi/lime/lime:12/RKQ1.211130.001/V13.0.2.0.SJQMIXM:user/release-keys", "lime-user 12 RKQ1.211130.001 V13.0.2.0.SJQMIXM release-keys");
+    } else if (hwname == "lemon") {
+        set_device_props("M2010J19SY", "lemon", "Redmi 9T NFC", "lemon_global",
+		"Redmi/lemon_global/lemon:12/RKQ1.211130.001/V13.0.2.0.SJQMIXM:user/release-keys", "lemon_global-user 12 RKQ1.211130.001 V13.0.2.0.SJQMIXM release-keys");
+    } else if (hwname == "pomelo") {
+        set_device_props("M2010J19SL", "pomelo", "Redmi Note 9 4G", "pomelo_global",
+		"Redmi/pomelo_global/pomelo:12/RKQ1.211130.001/V13.0.2.0.SJQMIXM:user/release-keys", "pomelo_global-user 12 RKQ1.211130.001 V13.0.2.0.SJQMIXM release-keys");
+    }
+
+    // Set hardware revision
+    property_override("ro.boot.hardware.revision", GetProperty("ro.boot.hwversion", "").c_str());
+
+    // Set dalvik heap configuration
+    string heapstartsize, heapgrowthlimit, heapsize, heapminfree,
+			heapmaxfree, heaptargetutilization;
+
+    struct sysinfo sys;
+    sysinfo(&sys);
+
+    if (sys.totalram > 5072ull * 1024 * 1024) {
+        // from - phone-xhdpi-6144-dalvik-heap.mk
+        heapstartsize = "16m";
+        heapgrowthlimit = "256m";
+        heapsize = "512m";
+        heaptargetutilization = "0.5";
+        heapminfree = "8m";
+        heapmaxfree = "32m";
+    } else if (sys.totalram > 3072ull * 1024 * 1024) {
+        // from - phone-xhdpi-4096-dalvik-heap.mk
+        heapstartsize = "8m";
+        heapgrowthlimit = "192m";
+        heapsize = "512m";
+        heaptargetutilization = "0.6";
+        heapminfree = "8m";
+        heapmaxfree = "16m";
+    } else {
+        // from - phone-xhdpi-2048-dalvik-heap.mk
+        heapstartsize = "8m";
+        heapgrowthlimit = "192m";
+        heapsize = "512m";
+        heaptargetutilization = "0.75";
+        heapminfree = "512k";
+        heapmaxfree = "8m";
+    }
+
+    property_override("dalvik.vm.heapstartsize", heapstartsize);
+    property_override("dalvik.vm.heapgrowthlimit", heapgrowthlimit);
+    property_override("dalvik.vm.heapsize", heapsize);
+    property_override("dalvik.vm.heaptargetutilization", heaptargetutilization);
+    property_override("dalvik.vm.heapminfree", heapminfree);
+    property_override("dalvik.vm.heapmaxfree", heapmaxfree);
 }
