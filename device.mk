@@ -227,11 +227,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/input/uinput-goodix.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/uinput-goodix.kl
 
 # Media
-PRODUCT_PACKAGES += \
-    android.hardware.media.omx@1.0-impl \
-    android.hardware.media.omx@1.0-service \
-    libstagefright_omx.vendor
-
 PRODUCT_VENDOR_PROPERTIES += \
     media.settings.xml=/vendor/etc/media_profiles_vendor.xml \
     vendor.mm.enable.qcom_parser=16777215
