@@ -152,11 +152,7 @@ PRODUCT_VENDOR_PROPERTIES += \
     vendor.display.enable_rounded_corner=0
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    debug.sf.enable_gl_backpressure=1 \
-    debug.sf.disable_client_composition_cache=1 \
-    vendor.display.enable_async_powermode=0 \
-    debug.renderengine.backend=skiaglthreaded \
-    ro.hwui.render_ahead=20
+    vendor.display.enable_async_powermode=0
 
 # DPM
 PRODUCT_VENDOR_PROPERTIES += \
