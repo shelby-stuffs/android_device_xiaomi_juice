@@ -1,4 +1,4 @@
-# Copyright (C) 2022 Paranoid Android
+# Copyright (C) 2024 Paranoid Android
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,13 +20,13 @@ TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := generic
+TARGET_CPU_VARIANT := cortex-a73
 
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv7-a-neon
+TARGET_2ND_ARCH_VARIANT := armv8-a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := cortex-a9
+TARGET_2ND_CPU_VARIANT := cortex-a73
 
 # AVB
 BOARD_AVB_ENABLE := true
@@ -91,16 +91,17 @@ TARGET_RECOVERY_DEVICE_MODULES := libinit_juice
 
 # Kernel
 BOARD_KERNEL_CMDLINE := \
-    earlycon=msm_geni_serial,0x4a90000 \
+    androidboot.fstab_suffix=qcom \
+    androidboot.init_fatal_reboot_target=recovery \
     androidboot.hardware=qcom \
     androidboot.memcg=1 \
+    earlycon=msm_geni_serial,0x4a90000 \
     lpm_levels.sleep_disabled=1 \
     msm_rtb.filter=0x237 \
     service_locator.enable=1 \
     swiotlb=2048 \
     loop.max_part=7
 
-BOARD_KERNEL_CMDLINE += androidboot.fstab_suffix=qcom
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_RAMDISK_OFFSET := 0x01000000

@@ -1,17 +1,6 @@
 # Device proprietary files - from lime MIUI V12.5.11.0.RQJMIXM package, unless pinned
 # LA.UM.9.15.2.r1-07000-KAMORTA.QSSI-13.0 blobs from bengal
-# LA.VENDOR.1.0.r1-15600-WAIPIO blobs from taro
 # qssi-user-11-RKQ1.201004.002-V12.5.7.0.RJFMIXM-release-keys blobs from citrus
-
-# ACDB - from LA.VENDOR.1.0.r1-15600-WAIPIO
-vendor/etc/acdbdata/bengal_idp/IDP_acdb_cal.acdb|fab9d9cbea770f295a1008cb1366d432eec62c81
-vendor/etc/acdbdata/bengal_idp/IDP_workspaceFileXml.qwsp|5f56c0cb5d27755e5db26f9ffcc5756e10753460
-vendor/etc/acdbdata/bengal_qrd/QRD_acdb_cal.acdb|278f923deace47b1fc766e9e1a5a527fe0422dc6
-vendor/etc/acdbdata/bengal_qrd/QRD_workspaceFileXml.qwsp|82216a3aaf9efdb42114d1b37ce7f9b33759f453
-vendor/etc/acdbdata/bengal_scubaidp/IDP_scuba_acdb_cal.acdb|fab9d9cbea770f295a1008cb1366d432eec62c81
-vendor/etc/acdbdata/bengal_scubaidp/IDP_scuba_workspaceFileXml.qwsp|5f56c0cb5d27755e5db26f9ffcc5756e10753460
-vendor/etc/acdbdata/bengal_scubaqrd/QRD_scuba_acdb_cal.acdb|278f923deace47b1fc766e9e1a5a527fe0422dc6
-vendor/etc/acdbdata/bengal_scubaqrd/QRD_scuba_workspaceFileXml.qwsp|82216a3aaf9efdb42114d1b37ce7f9b33759f453
 
 # ACDB - from MIUI
 vendor/etc/acdbdata/IDP/bengal-scubaidp-snd-card/IDP_Scuba_Bluetooth_cal.acdb|0cc92d7ce081e30ccaa203b3591f592d7ca36a6d
@@ -95,7 +84,7 @@ vendor/lib64/vendor.qti.hardware.audiohalext@1.0.so|b2db901f9a869eb5ded133db7040
 
 # Audio Configs - from MIUI
 vendor/etc/audio_effects.conf|6e7915d5143cdfb0b886105a432dac1aa4a0125e
-vendor/etc/audio_effects.xml|52d01a9207cf8af174333a49c281a25fecd60c2d
+vendor/etc/audio_effects.xml|adcc9da745a01644f773fd9ca446df3901ccfefa
 vendor/etc/audio_platform_info.xml|b9603243dfc3a9de4a9d5c7d59c6b1daffa0ff3b
 vendor/etc/audio_platform_info_idp.xml|5611b74ec8617cf5977697ed67988a95443deef5
 vendor/etc/audio_platform_info_intcodec.xml|2c394622cb6a372247b7d38cdf643714f5d387b9
@@ -332,7 +321,7 @@ vendor/lib64/camera/components/com.qti.node.eisv3.so|d735ac20203886bf32fb962e404
 vendor/lib64/camera/components/com.qti.node.fcv.so|27c7f10ebca7656261c5134717485f2d09a70ea8
 vendor/lib64/camera/components/com.qti.node.gpu.so|cd784a74d4bc97ec2c74dd7621efc8347a4509bb
 vendor/lib64/camera/components/com.qti.node.memcpy.so|248765814098b7a9581ea8607ae55db0bff398e7
-vendor/lib64/camera/components/com.qti.node.mialgocontrol.so|3c9bd7f764fffb53ad8216ffd9948ca8158e2e42
+vendor/lib64/camera/components/com.qti.node.mialgocontrol.so|ff5b481b163a5e25cc05bbeeac9620cfc00d0e58
 vendor/lib64/camera/components/com.qti.node.realtimebokeh.so|a60a798354c7e4fb49bcbedc9762183e8ea33628
 vendor/lib64/camera/components/com.qti.node.remosaic.so|c4e6dddd245b67528de1c5b947309a81fd894026
 vendor/lib64/camera/components/com.qti.node.stich.so|c4bb696e6575eaaaa22862cffabdd650e1662ef5
@@ -708,10 +697,10 @@ vendor/firmware/a702_zap.elf|d51606fdc9297b7b7f29e320871bd28fcfcf53d5
 vendor/firmware/a702_zap.mdt|217b559a374a471c010dee8cc48b543d6973cb4a
 
 # HotwordEnrollment - from MIUI
--product/priv-app/HotwordEnrollmentOKGoogleHEXAGON/HotwordEnrollmentOKGoogleHEXAGON.apk;PRESIGNED|be034975707dbd860441ad16746277f04bede8d2
--product/priv-app/HotwordEnrollmentXGoogleHEXAGON/HotwordEnrollmentXGoogleHEXAGON.apk;PRESIGNED|b53e90faf861f36c3b71f7f15f54960b1e9d6313
+-product/priv-app/HotwordEnrollmentOKGoogleHEXAGON/HotwordEnrollmentOKGoogleHEXAGON.apk;PRESIGNED|bb3a3f6115beb24b549c22e45c2cc08e42e945cc
+-product/priv-app/HotwordEnrollmentXGoogleHEXAGON/HotwordEnrollmentXGoogleHEXAGON.apk;PRESIGNED|713275a65c14114edfa19d1e549931f6cbf4023c
 system_ext/etc/permissions/com.android.hotwordenrollment.common.util.xml|563a58554d9c0dd0608552b644fbf74519a447bb
--system_ext/framework/com.android.hotwordenrollment.common.util.jar|c764b636e0be426a66be09dd08ab9c1921327ef0
+-system_ext/framework/com.android.hotwordenrollment.common.util.jar|bef92589e75a6da6043f85f4b9b0e85866429624
 
 # IMS - from MIUI
 vendor/bin/ims_rtp_daemon|4742d72c1e641179b05806dff0cd3c71af599b6b
@@ -783,7 +772,7 @@ vendor/firmware/scuba_ipa_fws.elf|cc680f8ffa5fb5f6de87e490b0a7270cae7cff3d
 vendor/firmware/scuba_ipa_fws.mdt|74693016d7013874005a75305eb6de0eaad44df6
 
 # Listen - from MIUI
-vendor/lib/hw/sound_trigger.primary.bengal.so
+vendor/lib/hw/sound_trigger.primary.bengal.so|d7532a84cd824bc65a0ae4c214ee590decb4151e
 vendor/lib/libadpcmdec.so|491fedbdcf9a395340ce4142c277156c0056bcf8
 vendor/lib/libcapiv2svacnn.so|da98f2be1e8bd1aba364610063e70c34cab844d2
 vendor/lib/libcapiv2vop.so|b47caa2eeec81e98de03439548d9b9199222eda7
