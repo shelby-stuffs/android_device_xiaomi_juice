@@ -640,7 +640,6 @@ vendor/etc/permissions/com.fingerprints.extension.xml|de711d8827e1d321b22b60fd75
 -vendor/framework/com.fingerprints.extension.jar|da85473758ee143fad4d824d1fb95d9ad6b297a9
 vendor/lib/hw/fingerprint.default.so|04a8b372c93b207d9ef9ffc43f2af2ea95b8bb9a
 vendor/lib/hw/fingerprint.silead.default.so|48865abc47e43fe74441b25a9da4ed39e15d7c60
-vendor/lib/com.fingerprints.extension@1.0.so|e9646c34226b774fcc16128a8be3194de61d8dca
 vendor/lib/libsl_fp_impl.so|a28f2f1caf162bb2417a1c903e38649436ec93de
 vendor/lib/vendor.qti.hardware.fingerprint@1.0.so|6e6c55128d28b7e888c8d7b7b0ceee7838c14b13
 vendor/lib64/hw/cdfinger.fingerprint.default.so|43a27345303f21b8abb97b6a15895e547d2ad58a
@@ -648,7 +647,6 @@ vendor/lib64/hw/fingerprint.default.so|37de7be059e98b81e21f68d2da59473ae7843c69
 vendor/lib64/hw/fingerprint.silead.default.so|67c7a5cfee20e415bf7d66270c761edb7fb09ffe
 vendor/lib64/hw/focal_fingerprint.default.so|1c6fc5a47487c702689e34b5f58cd7f3ed9aa576
 vendor/lib64/hw/gf_fingerprint.default.so|9c8f2bda99e0f685e665a1853ad22a214ea0e992
-vendor/lib64/com.fingerprints.extension@1.0.so|deaa82723441d174edbce44a88d3e3f12ca22569
 vendor/lib64/libgf_ca.so|f7931448f86486c68ea94a6c4f911f1c21a91d50
 vendor/lib64/libgf_hal.so|2d86eb30d0305f15a049ad81955e761cd1d6c066
 vendor/lib64/libgoodixhwfingerprint.so|c0e77a2ef33cd9f9d0febb05e8155f80f9d83e60
