@@ -1194,7 +1194,7 @@ vendor/bin/wifidisplayhalservice|36bddae1febbee1bb53a80646d17c0fe36199757
 vendor/etc/init/android.hardware.drm@1.1-service.wfdhdcp.rc|c266f08783a17f6583e3f22c85e55b0c200442ea
 vendor/etc/init/com.qualcomm.qti.wifidisplayhal@1.0-service.rc|576ce4393b7746b77a230745aa9e9ee3bd31b17d
 vendor/etc/init/wfdvndservice.rc|42e28fb8e0bf00620d7b9939b5bd3164ca671033
-vendor/etc/seccomp_policy/wfdhdcphalservice.policy|23b46af886f3233c2bddff87507ae8d37c31c022
+vendor/etc/seccomp_policy/wfdhdcphalservice.policy|dd6e81ec3276f4ea6082c41ede96c8155dbf24eb
 vendor/etc/seccomp_policy/wfdvndservice.policy|b46f0c22a1f9b65c6750205e161c0a3f84ac716b
 vendor/etc/seccomp_policy/wifidisplayhalservice.policy|698f46d3a3b89be125e2fe88439c770e5c647037
 vendor/etc/wfdconfig.xml|9e13371f7ae509cc0bbb3f2ace93c5ea5d87bf0f
