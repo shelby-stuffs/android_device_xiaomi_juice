@@ -61,7 +61,11 @@ function blob_fixup() {
         vendor/lib64/libvendor.goodix.hardware.biometrics.fingerprint@2.1.so)
             sed -i "s/libhidltransport.so/libhidlbase_shim.so/" "${2}"
             ;;
-    esac
+        vendor/lib64/mediadrm/libwvdrmengine.so|vendor/lib64/libwvhidl.so)
+            [ "$2" = "" ] && return 0
+            grep -q "libcrypto-v33.so" "${2}" || "${PATCHELF}" --replace-needed "libcrypto.so" "libcrypto-v33.so" "$2"
+            ;;
+     esac
 }
 
 # Initialize the helper for common device
